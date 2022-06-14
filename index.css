@@ -28,11 +28,17 @@ div {
     display: flex;
 }
 
-.frontBirdImage {
-    object-fit: cover;
+.frontImage,
+.backImage {
+    object-fit: contain;
     width: 100%;
     min-width: 100%;
     max-width: 100%;
+    margin: auto;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
 }
 
 .cardBox {
@@ -43,4 +49,9 @@ div {
     border-radius: 5px;
     margin: 20px;
     object-fit: cover;
+    position: relative;
+}
+
+.hide {
+    display: none;
 }
