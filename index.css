@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+    background-color: rgb(232, 248, 193);
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    color: #75B79E;
+    font-weight: 700;
+    font-size: 56px;
+    margin: 40px;
+
+    text-justify: center;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+div {
+    width: 120px;
+    height: 150px;
+    display: flex;
+}
+
+.frontBirdImage {
+    object-fit: cover;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.cardBox {
+    width: 120px;
+    height: 150px;
+    background-color: #A7E9AF;
+    border: 1px solid #99CEA8;
+    border-radius: 5px;
+    margin: 20px;
+    object-fit: cover;
+}
