@@ -86,12 +86,17 @@ class Card {
                 document.getElementById(this.id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
 
                 //Unflip cards that didn't match after 1 second
-                this.flipped = false
-                lastCardsFlipped[0].flipped = false
-                //setTimeout(() => {
+                this.flipped = false //First card clicked
+                lastCardsFlipped[0].flipped = false //Second card clicked
+                waitingCardsUnflip = true
+                setTimeout(() => {
                     document.getElementById(this.id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
-                    document.getElementById(lastCardsFlipped[0].id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
-                //}, 1000)
+                    document.getElementById(lastCardsFlipped[1].id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
+                    console.log(this.id)
+                    console.log(lastCardsFlipped[1].id)
+                    waitingCardsUnflip = false
+                }, 1000);
+                //unflip(lastCardsFlipped[0].id, this.id)
             }
             isSecond = false
         }
@@ -110,7 +115,7 @@ function askCardsQnty() {
 
 function selectCard() {
     cards.forEach((card) => {
-        if (this.id == card.id && card.flipped === false) {
+        if (this.id == card.id && card.flipped === false && waitingCardsUnflip === false) {
             card.flip()
             lastCardsFlipped.unshift(card)
         }
@@ -119,6 +124,9 @@ function selectCard() {
 
 //Boolean that tells if player is flipping the second card
 let isSecond = false
+
+//Boolean that tells if player is waiting for game to unflip the 2 cards selected
+let waitingCardsUnflip = false
 
 //Store the last cards flipped
 const lastCardsFlipped = []
@@ -150,6 +158,10 @@ cards.forEach((card) => {
         backImageSrc: card.backImageSrc
     }))
 })
+
+//Randomize order of cards
+cards.sort(() => { return Math.random() - 0.5 })
+cards.sort(() => { return Math.random() - 0.5 })
 
 //Create cards as HTML objects
 cards.forEach((card) => {
