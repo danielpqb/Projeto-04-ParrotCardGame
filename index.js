@@ -39,6 +39,16 @@ class Card {
     }
 
     createHTML() {
+        //Create frontImage as <div>
+        const frontDiv = document.createElement('div')
+        frontDiv.src = 'img/front.png'
+        frontDiv.className = 'frontImage'
+
+        //Create backImage as <div>
+        const backDiv = document.createElement('div')
+        backDiv.src = this.backImageSrc
+        backDiv.className = 'backImage hide'
+
         //Create frontImage as <img>
         const front = document.createElement('img')
         front.src = 'img/front.png'
@@ -66,6 +76,8 @@ class Card {
     }
 
     flip() {
+        //document.getElementById(this.id).querySelector('.frontImage').style.transform('rotateY(180deg)')
+        document.getElementById(this.id).classList.toggle('flip')
         //Is first choice?
         if (isSecond === false) {
             this.flipped = true
@@ -92,7 +104,7 @@ class Card {
                     if (gameOver === true) {
                         alert('Parabéns você completou o jogo com ' + cardsRequested + ' cartas!!\nAtualize a página para jogar novamente.')
                     }
-                }, 100);
+                }, 300);
             }
             //Chose different types (cards do not match)
             else {
@@ -104,6 +116,8 @@ class Card {
                 lastCardsFlipped[1].flipped = false //Second card clicked
                 waitingCardsUnflip = true
                 setTimeout(() => {
+                    document.getElementById(this.id).classList.toggle('flip')
+                    document.getElementById(lastCardsFlipped[1].id).classList.toggle('flip')
                     document.getElementById(this.id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
                     document.getElementById(lastCardsFlipped[1].id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
                     waitingCardsUnflip = false
