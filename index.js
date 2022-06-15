@@ -39,45 +39,41 @@ class Card {
     }
 
     createHTML() {
-        //Create frontImage as <div>
-        const frontDiv = document.createElement('div')
-        frontDiv.src = 'img/front.png'
-        frontDiv.className = 'frontImage'
-
-        //Create backImage as <div>
-        const backDiv = document.createElement('div')
-        backDiv.src = this.backImageSrc
-        backDiv.className = 'backImage hide'
-
         //Create frontImage as <img>
         const front = document.createElement('img')
         front.src = 'img/front.png'
         front.className = 'frontImage'
-
+        front.dataset.identifier = 'front-face'
+        
+        
         //Create backImage as <img>
         const back = document.createElement('img')
         back.src = this.backImageSrc
         back.className = 'backImage hide'
+        back.dataset.identifier = 'back-face'
 
         //Create cardBox as <div>
         const card = document.createElement('div');
         card.id = this.id
         card.className = 'cardBox'
         card.onclick = selectCard
-
+        card.dataset.identifier = 'card'
+        
         //Put frontImage inside cardBox
         card.appendChild(front)
-
+        
         //Put backImage inside cardBox
         card.appendChild(back)
-
+        
         //Put cardBox inside board
         board.appendChild(card)
     }
 
     flip() {
-        //document.getElementById(this.id).querySelector('.frontImage').style.transform('rotateY(180deg)')
+        //Flip the card selected and add one to the flips counter
+        nFlips++
         document.getElementById(this.id).classList.toggle('flip')
+
         //Is first choice?
         if (isSecond === false) {
             this.flipped = true
@@ -102,7 +98,7 @@ class Card {
                 //If game is over, congratulate player
                 setTimeout(() => { //Alert should be delayed because it was executing before flipping card
                     if (gameOver === true) {
-                        alert('Parabéns você completou o jogo com ' + cardsRequested + ' cartas!!\nAtualize a página para jogar novamente.')
+                        alert('Parabéns, você ganhou em ' + nFlips + ' jogadas!!\nDificuldade: ' + cardsRequested + ' cartas.\n\nAtualize a página para jogar novamente.')
                     }
                 }, 300);
             }
@@ -121,7 +117,7 @@ class Card {
                     document.getElementById(this.id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
                     document.getElementById(lastCardsFlipped[1].id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
                     waitingCardsUnflip = false
-                }, 1000);
+                }, 1500);
             }
             isSecond = false
         }
@@ -155,6 +151,9 @@ let waitingCardsUnflip = false
 
 //Boolean that tells if player matched all cards on the board
 let gameOver = false
+
+//Get the number of times that the player flipped a card
+let nFlips = 0
 
 //Get a random number to initiate a count that will represent the type of the card
 const rnd = Math.floor(Math.random() * 7)
