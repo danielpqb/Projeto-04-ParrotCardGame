@@ -76,7 +76,7 @@ class Card {
         //Is second choice?
         else {
             //Chose same type (cards match)
-            if (this.type === lastCardsFlipped[0].type) {
+            if (this.type === lastCardsFlipped[1].type) {
                 this.flipped = true
                 document.getElementById(this.id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
             }
@@ -87,16 +87,13 @@ class Card {
 
                 //Unflip cards that didn't match after 1 second
                 this.flipped = false //First card clicked
-                lastCardsFlipped[0].flipped = false //Second card clicked
+                lastCardsFlipped[1].flipped = false //Second card clicked
                 waitingCardsUnflip = true
                 setTimeout(() => {
                     document.getElementById(this.id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
                     document.getElementById(lastCardsFlipped[1].id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
-                    console.log(this.id)
-                    console.log(lastCardsFlipped[1].id)
                     waitingCardsUnflip = false
                 }, 1000);
-                //unflip(lastCardsFlipped[0].id, this.id)
             }
             isSecond = false
         }
@@ -116,8 +113,8 @@ function askCardsQnty() {
 function selectCard() {
     cards.forEach((card) => {
         if (this.id == card.id && card.flipped === false && waitingCardsUnflip === false) {
-            card.flip()
             lastCardsFlipped.unshift(card)
+            card.flip()
         }
     })
 }
