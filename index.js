@@ -11,9 +11,9 @@ class Card {
         this.flipped = flipped
     }
 
-    getRndType() {
-        const rnd = Math.floor(Math.random() * 7) + 1
-        switch (rnd) {
+    getType() {
+        this.type = (this.id + rnd) % 7 + 1
+        switch (this.type) {
             case 1:
                 this.backImageSrc = 'img/bobrossparrot.gif'
                 break;
@@ -36,7 +36,6 @@ class Card {
                 this.backImageSrc = 'img/unicornparrot.gif'
                 break
         }
-        this.type = rnd
     }
 
     createHTML() {
@@ -79,6 +78,21 @@ class Card {
             if (this.type === lastCardsFlipped[1].type) {
                 this.flipped = true
                 document.getElementById(this.id).querySelectorAll('img').forEach((img) => { img.classList.toggle('hide') })
+
+                //Did player match all cards on the board?
+                gameOver = true
+                cards.forEach((card) => {
+                    if (card.flipped === false) {
+                        gameOver = false
+                    }
+                })
+
+                //If game is over, congratulate player
+                setTimeout(() => { //Alert should be delayed because it was executing before flipping card
+                    if (gameOver === true) {
+                        alert('Parabéns você completou o jogo com ' + cardsRequested + ' cartas!!\nAtualize a página para jogar novamente.')
+                    }
+                }, 100);
             }
             //Chose different types (cards do not match)
             else {
@@ -125,6 +139,12 @@ let isSecond = false
 //Boolean that tells if player is waiting for game to unflip the 2 cards selected
 let waitingCardsUnflip = false
 
+//Boolean that tells if player matched all cards on the board
+let gameOver = false
+
+//Get a random number to initiate a count that will represent the type of the card
+const rnd = Math.floor(Math.random() * 7)
+
 //Store the last cards flipped
 const lastCardsFlipped = []
 
@@ -144,7 +164,7 @@ for (let i = 1; i <= cardsRequested / 2; i++) {
 
 //Give a type to each card
 cards.forEach((card) => {
-    card.getRndType()
+    card.getType()
 })
 
 //Instanciate alias cards

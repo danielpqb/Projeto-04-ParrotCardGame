@@ -28,6 +28,10 @@ div {
     display: flex;
 }
 
+div:hover {
+    transition: opacity 4s ease-in-out 4s;
+}
+
 .frontImage,
 .backImage {
     object-fit: contain;
@@ -42,6 +46,8 @@ div {
 }
 
 .cardBox {
+    transition-timing-function: ease;
+    transition-duration: 2s;
     width: 120px;
     height: 150px;
     background-color: #A7E9AF;
