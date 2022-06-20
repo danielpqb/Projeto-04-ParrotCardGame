@@ -67,3 +67,22 @@ div {
 .flip {
     transform: rotateY(180deg);
 }
+
+.clock {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 150px;
+    height: 30px;
+    background-color: rgba(26, 26, 26, 0.2);
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-weight: bold;
+    border: 5px solid rgb(2, 37, 4);
+    border-radius: 3px;
+}

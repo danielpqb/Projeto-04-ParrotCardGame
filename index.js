@@ -44,8 +44,8 @@ class Card {
         front.src = 'img/front.png'
         front.className = 'frontImage'
         front.dataset.identifier = 'front-face'
-        
-        
+
+
         //Create backImage as <img>
         const back = document.createElement('img')
         back.src = this.backImageSrc
@@ -58,13 +58,13 @@ class Card {
         card.className = 'cardBox'
         card.onclick = selectCard
         card.dataset.identifier = 'card'
-        
+
         //Put frontImage inside cardBox
         card.appendChild(front)
-        
+
         //Put backImage inside cardBox
         card.appendChild(back)
-        
+
         //Put cardBox inside board
         board.appendChild(card)
     }
@@ -98,7 +98,20 @@ class Card {
                 //If game is over, congratulate player
                 setTimeout(() => { //Alert should be delayed because it was executing before flipping card
                     if (gameOver === true) {
-                        alert('Parabéns, você ganhou em ' + nFlips + ' jogadas!!\nDificuldade: ' + cardsRequested + ' cartas.\n\nAtualize a página para jogar novamente.')
+                        clearInterval(tickInterval) //Stop timer
+                        alert('Parabéns, você ganhou em ' + nFlips + ' jogadas!!\nDificuldade: ' + cardsRequested + ' cartas.\nTempo: ' + tick + ' segundos\n\nAtualize a página para jogar novamente.')
+                        let r
+                        while (r != 'sim' && r != 'não') {
+                            switch (r = prompt("Gostaria de jogar novamente? Digite 'sim' ou 'não'.")) {
+                                case 'sim':
+                                    location.reload()
+                                    break;
+                                case 'não':
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                     }
                 }, 300);
             }
@@ -141,6 +154,14 @@ function selectCard() {
             card.flip()
         }
     })
+}
+
+function timer() {
+    document.querySelector(".clock").innerHTML = `${tick} s`;
+    tickInterval = setInterval(() => {
+        tick++;
+        document.querySelector(".clock").innerHTML = `${tick} s`;
+    }, 1000);
 }
 
 //Boolean that tells if player is flipping the second card
@@ -197,3 +218,8 @@ cards.sort(() => { return Math.random() - 0.5 })
 cards.forEach((card) => {
     card.createHTML()
 })
+
+//Start clock timer
+let tick = 0
+let tickInterval
+timer()
